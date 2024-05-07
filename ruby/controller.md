@@ -16,8 +16,8 @@ class TweetsController < ApplicationController
 def edit
 end
 ```
-privateに `def set_tweet`を定義しておく
-<br><br>
+privateに `def set_tweet`を定義しておく  
+<br>
 
 > [!NOTE]
 >ログインしていないユーザーをindexに飛ばしたい時の記述  
@@ -33,25 +33,28 @@ private
   end
 end
 ```
-indexにアクセスするとループとなるため除外する必要があるため  
+indexにアクセスするとループとなるため除外する必要があるため
 `except:[:index]`
 を追加すると、indexを除いたほかの全てで実行される
 <br><br><br>
 
+## ストロングパラメーター
+`params.require(:モデル名).permit(:許可するキー)`  
+→ params.require(:post).permit(:image, :text) 
+<br><br>
 
 ## devise_parameter_sanitizer
-* permitメソッドを組み合わせることでdeviseに定義されているストロングパラメーターに対し自分で新しく追加したカラムも指定して含めることができる
 * deviseのコントローラーは触れないため`apprication_controller.rb`に書く
-* Application_Controller : 全てのコントローラーがここを読み込むファイル。ここに書くとすべてのコントローラーで共通の処理をする。
-* deviseのコントローラーだけに読み込ませる場合
-→ `before_action :configure_permitted_parameters, if: :devise_controller?`を追記
-```
-    paramsのpermitメソッド
-    params.require(:モデル名).permit(:許可するキー)
-            ↓
-    devise_parameter_sanitizerのpermitメソッド
-    devise_parameter_sanitizer.permit(:deviseの処理名, keys: [:許可するキー])
-```
+* Application_Controller : 全てのコントローラーがここを読み込むファイル。ここに書くとすべてのコントローラーで共通の処理をする
+* permitメソッドを組み合わせることでdeviseに定義されているストロングパラメーターに対し自分で新しく追加したカラムも指定して含めることができる
+* Application_Controllerでdeviseのコントローラーだけに読み込ませる場合  
+`→ before_action :configure_permitted_parameters, if: :devise_controller?`を追記
+<br>
+
+`devise_parameter_sanitizer.permit(:deviseの処理名, keys: [:許可するキー])`  
+→ devise_parameter_sanitizer.permit(:sign_up, keys: [:name])  
+処理名はsign_up,sign_inなどdeviseで決められたものがある
+
 例
 ```
 before_action :configure_permitted_parameters, if: :devise_controller?
@@ -60,6 +63,19 @@ private
     def configure_permitted_parameters  # メソッド名は慣習
       devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])　# deviseのUserモデルにパラメーターを許可
 　　end
+end
+```
+<br><br><br>
+
+## render
+ルーティングを経ずにビューが表示される→ 元のインスタンス変数は上書きされない（フォーム内容を維持したまま画面に戻る）
+```
+def update
+        if current_user.update(user_params)
+              redirect_to root_path
+        else
+              render :edit, status: :unprocessable_entity
+        end
 end
 ```
 <br><br><br>
