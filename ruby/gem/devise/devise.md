@@ -23,7 +23,7 @@
 4.rails d devise user
 5.rails d devise:install
 ```
-controllerは普通に生成しないといけないのでrails g controller usersをする。
-(その前にresources :users をrouteに設定する→　pathが出る)
+controllerは普通に生成しないといけないのでrails g controller usersをする。  
+(その前にresources :users をrouteに設定する→　pathが出る)  
 → views/users/ も自動的に作られる
 
