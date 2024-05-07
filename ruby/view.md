@@ -1,3 +1,22 @@
+## 部分テンプレートを作る
+`<%= render partial: "部分テンプレートファイル名" %>`
+
+* テンプレファイルは _ をファイル名の先頭につける
+* localsというオプションを付けると部分テンプレート内でその変数を使えるようになる
+```
+         <%= render partial: "sample", locals: { post: "hello!" } %>
+```
+post ="hello!" という変数が_sample.html.erbテンプレート内で使える状態
+<br><br><br>
+
+## 現在ログインしているユーザーをeachメソッドの処理から取り除く
+`モデル名.where.not("条件")`
+```
+     <% User.where.not(id: current_user.id).each do |user| %>
+```
+
+ログインしているユーザー以外のすべてのレコードを取得（all -current_user）
+<br><br><br>
 
 
 ## form_with
@@ -24,7 +43,7 @@
   <%= form.submit %>
 <% end %>
 ```
-
+<br><br><br>
 
 ## サインインの有無で条件分岐
 `if user_signed_in?`  
@@ -42,4 +61,20 @@
      <%= link_to "新規登録", new_user_registration_path, class: "post" %>
   </div>
 <% end %>
+```
+<br><br><br>
+
+## 画像の表示方法
+`<%= image_tag '画像へのパス' %>`  
+例
+```
+<%= image_tag 'arrow_top.png' %>
+```
+<br><br><br>
+
+## 画像のリンク
+`<%= link_to image_tag('test.jpg'), 'パス' %>`  
+スタイルもつけられる
+```
+      <%= link_to image_tag('test.jpg', class: "contents"), 'パス' %>
 ```
