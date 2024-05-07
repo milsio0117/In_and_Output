@@ -88,3 +88,16 @@ end
      before_action :authenticate_user!
  end
 ```
+<br><br><br>
+
+## 並び順を変える
+`インスタンス = モデル名.order("並び替えの基準となるカラム名 並び順")`
+* レコードの取得順を変える  
+* DESC :降順（新→古）
+* ASC :昇順（古→新）
+
+```
+      def index
+        @tweets = Tweet.includes(:user).order("created_at DESC")
+      end
+```
