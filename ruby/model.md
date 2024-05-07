@@ -24,3 +24,35 @@ dependent: をつけるとTweet（親）にいるcomments（子）も一緒に�
 ```
 Messageテーブルにimageファイルが１つ添付できる状態  
 このときmessagesテーブルにカラムを追加する必要はない
+<br><br><br>
+
+## レコードの検索
+* テーブルとのやりとりに関するメソッドはモデルに置く！  
+* コントローラーはあくまでモデルの機能を利用し処理を呼ぶだけで、複雑な処理は組まない  
+* モデルが使用できる、ActiveRecordメソッド.テーブル内の「条件に一致したレコードのインスタンス」を配列の形で取得できる  
+`モデル.where('検索対象となるカラムを含む条件式')`
+```
+          def self.search(search)
+            if search != ""
+              Tweet.where('text LIKE(?)', "%#{search}%")
+            else
+              Tweet.all
+            end
+          end
+```
+
+モデル名.where.not("条件") は条件に一致したレコード以外の値を配列として取得できる
+```
+          User.where.not(id: current_user.id).each do |user|
+```
+ ↑ 現在ログイン中のユーザー以外のすべてを取得(all -自分)
+
+> [!TIP]
+> LIKE句:　% :任意の文字列、　_ :任意の文字(1文字)
+```
+        where('title LIKE(?)', "a%")	aから始まるタイトル
+        where('title LIKE(?)', "%b")	bで終わるタイトル
+        where('title LIKE(?)', "%c%")	cが含まれるタイトル
+        where('title LIKE(?)', "d_")	dで始まる2文字のタイトル
+        where('title LIKE(?)', "_e")	eで終わる2文字のタイトル
+```
