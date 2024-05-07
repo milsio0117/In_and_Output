@@ -1,3 +1,10 @@
+## 削除ボタン(destroy) 
+httpメソッドは`data: { turbo_method: :delete }`
+```
+<%= link_to '削除', "tweet_path(tweet.id)", data: { turbo_method: :delete } %>
+```
+<br><br><br>
+
 ## before_action
 定義されたアクションが実行される前に共通の処理を行う
 ```
