@@ -3,7 +3,7 @@
 
 * テンプレファイルは _ をファイル名の先頭につける
 * localsというオプションを付けると部分テンプレート内でその変数を使えるようになる
-```
+```ruby
          <%= render partial: "sample", locals: { post: "hello!" } %>
 ```
 post ="hello!" という変数が_sample.html.erbテンプレート内で使える状態
@@ -11,8 +11,8 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
 
 ## 現在ログインしているユーザーをeachメソッドの処理から取り除く
 `モデル名.where.not("条件")`
-```
-     <% User.where.not(id: current_user.id).each do |user| %>
+```ruby
+         <% User.where.not(id: current_user.id).each do |user| %>
 ```
 
 ログインしているユーザー以外のすべてのレコードを取得（all -current_user）
@@ -21,27 +21,27 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
 
 ## form_with
 データベースに保存しない場合
-```
-<%= form_with url: "パス" do |form| %>
-   <!--内容 -->
-<% end %>
+```ruby
+         <%= form_with url: "パス" do |form| %>
+            <!--内容 -->
+         <% end %>
 ```
 <br>
 
 データベースに保存する場合
-```
-<%= form_with model: モデルクラスのインスタンス do |form| %>  #モデルクラスのインスタンス:コントローラーで定義
-    <!--内容 -->
-<% end %>
+```ruby
+         <%= form_with model: モデルクラスのインスタンス do |form| %>  #モデルクラスのインスタンス:コントローラーで定義
+             <!--内容 -->
+         <% end %>
 ```
 <br>
 
 例：投稿フォームの作成
-```
-<%= form_with model: @user do |form| %>
-  <%= form.text_field :name %>  #form.htmlタグ名  :カラム名
-  <%= form.submit %>
-<% end %>
+```ruby
+         <%= form_with model: @user do |form| %>
+           <%= form.text_field :name %>  #form.htmlタグ名  :カラム名
+           <%= form.submit %>
+         <% end %>
 ```
 <br><br><br>
 
@@ -49,32 +49,32 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
 `if user_signed_in?`  
 例
 
-```
-<% if user_signed_in? %>
-  <div class="user_nav grid-6">
-     <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
-     <%= link_to "投稿する", new_tweet_path, class: "post" %>
-  </div>
-<% else %>
-  <div class="grid-6">
-     <%= link_to "ログイン", new_user_session_path, class: "post" %>
-     <%= link_to "新規登録", new_user_registration_path, class: "post" %>
-  </div>
-<% end %>
+```ruby
+         <% if user_signed_in? %>
+           <div class="user_nav grid-6">
+              <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+              <%= link_to "投稿する", new_tweet_path, class: "post" %>
+           </div>
+         <% else %>
+           <div class="grid-6">
+              <%= link_to "ログイン", new_user_session_path, class: "post" %>
+              <%= link_to "新規登録", new_user_registration_path, class: "post" %>
+           </div>
+         <% end %>
 ```
 <br><br><br>
 
 ## 画像の表示方法
 `<%= image_tag '画像へのパス' %>`  
 例
-```
-<%= image_tag 'arrow_top.png' %>
+```ruby
+         <%= image_tag 'arrow_top.png' %>
 ```
 <br><br><br>
 
 ## 画像のリンク
 `<%= link_to image_tag('test.jpg'), 'パス' %>`  
 スタイルもつけられる
-```
+```ruby
       <%= link_to image_tag('test.jpg', class: "contents"), 'パス' %>
 ```
