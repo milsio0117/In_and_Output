@@ -5,7 +5,7 @@
 <br>
 
 collectionルートはリソース全体に対して作用
-```
+```ruby
         resources :tweets do
           collection do
             get 'search'
@@ -17,7 +17,7 @@ collectionルートはリソース全体に対して作用
 <br>
 
 memberルートは特定の1つのリソースに対して作用 → 特定のリソースに対するアクションなど
-```
+```ruby
         resources :tweets do
           member do
             get 'search'
@@ -31,12 +31,12 @@ memberルートは特定の1つのリソースに対して作用 → 特定の�
 
 これは同じ処理（view）
 
-```
+```ruby
           <% @hoges.each do |hoge|%>>
             <%= render partial: 'hoge', locals: {hoge: hoge} %>>
           <% end %>>
 ```
 
-```
+```ruby
           <%= render partial: 'hoge', collection: @hoges %>>
 ```
