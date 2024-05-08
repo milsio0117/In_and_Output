@@ -1,25 +1,25 @@
 ## 削除ボタン(destroy) 
 httpメソッドは`data: { turbo_method: :delete }`
-```
+```ruby
 <%= link_to '削除', "tweet_path(tweet.id)", data: { turbo_method: :delete } %>
 ```
 <br><br><br>
 
 ## before_action
 定義されたアクションが実行される前に共通の処理を行う
-```
+```ruby
         class コントローラ名 < ApplicationController
             before_action :処理させたいメソッド名
 ```
 例
-```
+```ruby
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:edit, :show]
 ```
 
 →:edit, :show  が呼び出される前にこれが呼ばれる。edit,showにはdef endだけ書く
 
-```
+```ruby
 def edit
 end
 ```
@@ -29,7 +29,7 @@ privateに `def set_tweet`を定義しておく
 > [!NOTE]
 >ログインしていないユーザーをindexに飛ばしたい時の記述  
 `before_action :set_tweet, except:[:index]`
-```
+```ruby
 before_action :set_tweet, except:[:index]
 
 private
@@ -63,7 +63,7 @@ indexにアクセスするとループとなるため除外する必要がある
 処理名はsign_up,sign_inなどdeviseで決められたものがある
 
 例
-```
+```ruby
 before_action :configure_permitted_parameters, if: :devise_controller?
     
 private
@@ -76,7 +76,7 @@ end
 
 ## render
 ルーティングを経ずにビューが表示される→ 元のインスタンス変数は上書きされない（フォーム内容を維持したまま画面に戻る）
-```
+```ruby
 def update
         if current_user.update(user_params)
               redirect_to root_path
@@ -90,7 +90,7 @@ end
 ## authenticate_user! (apprication controller)
 * ログイン状態により表示ページを切り替えるdeviseのメソッド
 * authenticate_user!処理が呼ばれた段階でユーザーがログインしていなければそのユーザーをログイン画面に遷移させる
-```
+```ruby
  class ApplicationController < ActionController::Base
      before_action :authenticate_user!
  end
@@ -103,7 +103,7 @@ end
 * DESC :降順（新→古）
 * ASC :昇順（古→新）
 
-```
+```ruby
       def index
         @tweets = Tweet.includes(:user).order("created_at DESC")
       end
