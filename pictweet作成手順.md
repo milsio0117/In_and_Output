@@ -20,13 +20,13 @@
 <br><br>
 
 #### ルーティング設定 : config/routes.rb
-```
+```ruby
     Rails.application.routes.draw do
         HTTPメソッド 'URIパターン', to: 'コントローラー名#アクション名'
     end
 ```
 例
-```
+```ruby
     Rails.application.routes.draw do
         get 'posts', to: 'posts#index'
     end
@@ -47,7 +47,7 @@ rails g controller posts
 <br><br>
 
 #### アクションを定義 : controllers/posts_controller.rb
-```
+```ruby
     class PostsController < ApplicationController
         def index  # indexアクションを定義した
         end
@@ -61,12 +61,15 @@ rails g controller posts
 <br><br>
 
 #### モデルを作成
-`rails g model モデル名(単数形)`
-* 例：rails g model post
+`rails g model モデル名(単数形)`  
+例
+```
+rails g model post
+```
 <br><br>
 
 #### マイグレーションを編集してどのようなテーブルにするか決める
-```
+```ruby
   db/migrate/20XXXXXXXXXXXX_create_posts.rb
     class CreatePosts < ActiveRecord::Migration[7.0]
         def change
@@ -77,11 +80,14 @@ rails g controller posts
         end 
      end
 ```
-    ・integer	数値	金額、回数など
+
+```ruby
+    ・integer	数値	    金額、回数など
     ・string	文字(短文)	ユーザー名、メールアドレスなど
     ・text      文字(長文)	投稿文、説明文など
     ・boolean	真か偽か	はい・いいえの選択、合格・不合格のフラグなど
     ・datetime	日付と時刻
+```
 <br><br>
 
 #### マイグレーションを実行
@@ -102,7 +108,7 @@ rails g controller posts
 <br><br>
 
 #### コントローラーで単一レコードを取得 : app/controllers/posts_controller.rb
-```
+```ruby
     class PostsController < ApplicationController
         def index
         @post = Post.find(1)  # 1番目のレコードを@postに代入
@@ -112,32 +118,33 @@ rails g controller posts
 <br><br>
 
 #### ビューで単一レコードのカラムデータを表示 : app/views/posts/index.html.erb
-```<%= @post.content %>```
-* レコード全部を表示（@postだけ）させようとするとエラーになる。
-* 必要なら
-```<%= @post.content %>
-   <%= @post.created_at %>
+`<%= @post.content %>`  
+レコード全部を表示（@postだけ）させようとするとエラーになる。  
+必要なら
+```ruby
+    <%= @post.content %>
+    <%= @post.created_at %>
 ```
 といくつか分ける
 <br><br>
 
 #### ビューで複数レコードのカラムデータを表示 : app/views/posts/index.html.erb
-```
+```ruby
         <%= @posts.content %>
         <%= @posts.created_at %>
 ```
 * 変数名は分かりやすいように複数形にしておく
 * すべて取得した場合全部を表示させようとするとエラーになる
-```
+```ruby
         <% @posts.each do |post| %>
             <%= post.content %>
             <%= post.created_at %>
-            <% end %>
+        <% end %>
 ```
 <br><br>
 
 #### ビューファイルの見た目を整える : app/views/posts/index.html.erb
-```
+```ruby
         <% @posts.each do |post| %>
             <div class="post">
             <div class="post-date">
@@ -149,12 +156,12 @@ rails g controller posts
             </div>
         <% end %>
 ```
-* → cssファイルを作成 : app/assets/stylesheetsに posts.cssを作り編集する
+→ cssファイルを作成 : app/assets/stylesheetsに posts.cssを作り編集する
 <br><br>
 
 #### 投稿ページ作成 
-* ルーティングを設定: config/routes.rb
-```
+1. ルーティングを設定: config/routes.rb
+```ruby
         Rails.application.routes.draw do
             get 'posts', to: 'posts#index'
             get 'posts/new', to: 'posts#new'
@@ -162,8 +169,8 @@ rails g controller posts
 ```
 <br>
 
-* アクションを定義 : app/controllers/posts_controller.rb
-```
+2. アクションを定義 : app/controllers/posts_controller.rb
+```ruby
         class PostsController < ApplicationController
             def index
             @posts = Post.all
@@ -175,32 +182,33 @@ rails g controller posts
 ```
 <br>
 
-* ビューファイルを作成 :app/views/postsディレクトリにnew.html.erbを作成
+3. ビューファイルを作成  
+app/views/postsディレクトリにnew.html.erbを作成
 <br>
 
-* ビューにフォームを作成
-    ```
+4. ビューにフォームを作成
+```ruby
         <%= form_with url: "/posts", method: :post, local: true do |form| %>
             <%= form.text_field :content %>
             <%= form.submit '投稿する' %>
         <% end %>
-    ```
- local :リモート送信を無効にするかどうかを指定。trueにすると無効  
- method :フォームの情報を送るリクエストのHTTPメソッドを指定。オプションの初期値は:post なのでpostメソッドを指定する場合は省略することが可能
+```
+* local :リモート送信を無効にするかどうかを指定。trueにすると無効  
+* method :フォームの情報を送るリクエストのHTTPメソッドを指定。オプションの初期値は:post なのでpostメソッドを指定する場合は省略することが可能
 <br>
 
-* リンクを作成する
-```
+5. リンクを作成する
+```ruby
         <%= link_to 'リンクに表示する文字', 'リンク先のURL' %> または
         <%= link_to 'リンクに表示する文字', 'パス', method: :HTTPメソッド %>
 ```
 <br>
 
-* ビューファイルにリンクを追加
-・どのリクエストの情報を埋め込めば良いか考える。  
-rails routesを実行して、設定したルーティングを確認  
-例：これに入れる場合→ `posts_new   GET     /posts/new(.:format)  posts#new`
- ```
+6. ビューファイルにリンクを追加
+* どのリクエストの情報を埋め込めば良いか考える。  
+* rails routesを実行して、設定したルーティングを確認  
+例：これに入れる場合 `posts_new   GET     /posts/new(.:format)  posts#new`
+ ```ruby
         <%= link_to '新規投稿', '/posts/new' %> #ここが追加文
         <% @posts.each do |post| %>
         <div class="post">
@@ -216,8 +224,8 @@ rails routesを実行して、設定したルーティングを確認
 <br><br>
 
 #### 投稿完了ページ作成
-* ルーティングを設定 : config/routes.rb
-```
+1. ルーティングを設定 : config/routes.rb
+```ruby
         Rails.application.routes.draw do
             get 'posts', to: 'posts#index'
             get 'posts/new', to: 'posts#new'
@@ -225,8 +233,8 @@ rails routesを実行して、設定したルーティングを確認
         end
  ```
 
-* アクションを定義 : app/controllers/posts_controller.rb
-```
+12. アクションを定義 : app/controllers/posts_controller.rb
+```ruby
         class PostsController < ApplicationController
             def index
               @posts = Post.all
@@ -240,8 +248,8 @@ rails routesを実行して、設定したルーティングを確認
           end
 ```
 
-* アクションに保存の処理を書く: app/controllers/posts_controller.rb
-```
+3. アクションに保存の処理を書く: app/controllers/posts_controller.rb
+```ruby
         class PostsController < ApplicationController
             def index
               @posts = Post.all
