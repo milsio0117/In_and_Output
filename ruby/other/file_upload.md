@@ -39,3 +39,10 @@
 7. rails db:migrate
 
 8. DB テーブルにactive_strage_attachments,active_storage_blobsが追加される
+
+9. ファイル添付したいモデルにhas_one_attachedを記述
+```ruby
+class Message < ApplicationRecord
+      has_one_attached :image(#ファイル名)
+     end
+```
