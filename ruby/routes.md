@@ -26,17 +26,3 @@ memberルートは特定の1つのリソースに対して作用 → 特定の�
 ```
 
 → 得られるルーティング: `search_tweet      GET    /tweets/:id/search(.:format)   tweets#search`
-
-<br>
-
-これは同じ処理（view）
-
-```ruby
-          <% @hoges.each do |hoge|%>>
-            <%= render partial: 'hoge', locals: {hoge: hoge} %>>
-          <% end %>>
-```
-
-```ruby
-          <%= render partial: 'hoge', collection: @hoges %>>
-```
