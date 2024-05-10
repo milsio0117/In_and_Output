@@ -78,3 +78,16 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
 ```ruby
       <%= link_to image_tag('test.jpg', class: "contents"), 'パス' %>
 ```
+<br><br><br>
+
+## collection,member
+  これは同じ処理
+```ruby
+    <% @hoges.each do |hoge|%>>
+      <%= render partial: 'hoge', locals: {hoge: hoge} %>>
+    <% end %>>
+```
+
+```ruby
+    <%= render partial: 'hoge', collection: @hoges %>>
+```
