@@ -1,3 +1,9 @@
+## 入れるもの
+rspec-rails
+factory_bot_rails
+faker
+→ rails g rspec:install
+
 ### visit
 `visit xxx_path visit`のように記述すると、xxxのページ（指定したビューファイル）に遷移できる
 
