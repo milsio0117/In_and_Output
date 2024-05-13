@@ -83,11 +83,11 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
 ## collection,member
   これは同じ処理
 ```ruby
-    <% @hoges.each do |hoge|%>>
-      <%= render partial: 'hoge', locals: {hoge: hoge} %>>
-    <% end %>>
+    <% @hoges.each do |hoge|%>
+      <%= render partial: 'hoge', locals: {hoge: hoge} %>
+    <% end %>
 ```
 
 ```ruby
-    <%= render partial: 'hoge', collection: @hoges %>>
+    <%= render partial: 'hoge', collection: @hoges %>
 ```
