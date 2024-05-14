@@ -25,6 +25,17 @@ spec/factories/messages.rb
 ```
 7. `rails g rspec:model user`などでモデルのテストファイルを作る
 8. modelのvalidatesを確認してテスト項目を洗い出す
+9. `factories/users.rb`などのファイルに必要なFaker項目を記述
+```ruby
+            FactoryBot.define do
+                factory :user do
+                  name                  {Faker::Name.last_name}
+                  email                 {Faker::Internet.email}
+                  password              {Faker::Internet.password(min_length: 6)}
+                  password_confirmation {password}
+                end
+              end
+```
 
 <br>
 
