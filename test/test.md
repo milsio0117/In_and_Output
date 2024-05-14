@@ -1,8 +1,31 @@
-## 入れるもの
-rspec-rails  
-factory_bot_rails  
-faker  
-→ rails g rspec:install  
+## テスト手順
+1. Gemfileに記述
+```ruby
+    group :development, :test do
+    
+      gem 'rspec-rails'
+      gem 'factory_bot_rails'
+      gem 'faker'
+    end
+```
+
+2. bundle install
+3. rails g rspec:install
+4. .rspecに`--format documentation`を追加記述（ログが文章で表示されて見やすくなる）
+5. spec/rails_helper.rbに追記（エラーメッセージを英語にする）
+```ruby
+      I18n.locale = "en"　　←これ
+      RSpec.configure do |config|
+```
+6. ファイル、フォルダを手動で作る
+```
+spec/factories/messages.rb
+              /rooms.rb
+              /users.rb
+```
+7. `rails g rspec:model user`などでモデルのテストファイルを作る
+8. modelのvalidatesを確認してテスト項目を洗い出す
+
 <br>
 
 ### visit
