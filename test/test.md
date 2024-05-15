@@ -36,8 +36,23 @@ spec/factories/messages.rb
                 end
               end
 ```
+10. `spec/models/user_spec.rb`などのファイルで事前にインスタンス変数を設定しておく
+```ruby
+            RSpec.describe User, type: :model do
+              before do                                ←ここから下
+                @user = FactoryBot.build(:user)
+              end
+```
+
+`(例)bundle exec rspec spec/models/user_spec.rb`でテストコード実行
 
 <br>
+
+### expect().to matcher()
+matcherにはinclude,eqなどの想定挙動が入る  
+* include 例：expect(['りんご', 'バナナ', 'ぶどう', 'メロン']).to include('メロン')  
+* eq 例     ：expect(1 + 1).to eq(2)  
+
 
 ### visit
 `visit xxx_path visit`のように記述すると、xxxのページ（指定したビューファイル）に遷移できる
