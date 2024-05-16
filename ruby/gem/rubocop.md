@@ -1,3 +1,5 @@
+## 導入
+
 1. gemfileに記載  
 ```ruby
 group :development do
@@ -95,4 +97,12 @@ Naming/MethodParameterName:
  MinNameLength: 1
 ```
 
-[Rubocopのデフォルト設定詳細]:(https://github.com/rubocop/rubocop/blob/master/config/default.yml)
+[Rubocopのデフォルト設定詳細]((https://github.com/rubocop/rubocop/blob/master/config/default.yml))
+<br><br><br>
+
+## Rubocopを実行
+`bundle exec rubocop`  
+<br><br><br>
+
+## Rubocopを実行し、check内容を自動修正
+`bundle exec rubocop -a`
