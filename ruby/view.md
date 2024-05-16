@@ -91,3 +91,22 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
 ```ruby
     <%= render partial: 'hoge', collection: @hoges %>
 ```
+<br><br><br>
+
+## エラー文を表示する
+`pluralize`: エラーの数が1以外（0や2以上）なら"error"に適切な複数形の"エラー"という単語をつけるメソッド  
+@model ←なんらかのmodelインスタンス  
+```ruby
+         <% if @model.errors.any? %>
+           <div id="error_explanation">
+             <h2><%= pluralize(@model.errors.count, "error") %> prohibited this model from being saved:</h2>
+         
+             <ul>
+             <% @model.errors.full_messages.each do |message| %>
+               <li><%= message %></li>
+             <% end %>
+             </ul>
+           </div>
+         <% end %>
+```
+<br><br><br>
