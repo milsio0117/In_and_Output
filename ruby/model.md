@@ -57,3 +57,42 @@ Messageテーブルにimageファイルが１つ添付できる状態
         where('title LIKE(?)', "d_")	dで始まる2文字のタイトル
         where('title LIKE(?)', "_e")	eで終わる2文字のタイトル
 ```
+<br><br><br>
+
+## テーブルを使わずカラムに保存する
+**選択肢が少数で頻繁に変わることがない場合**
+1. enum  
+postage_payerカラムにsellerまたはbuyerという2つの状態を設定  
+→ データベースには0と1として保存され、コード上ではsellerやbuyerとして扱うことができる
+
+```ruby
+      class Product < ApplicationRecord
+        enum postage_payer: { seller: 0, buyer: 1 }
+      end
+```
+
+例えば上のような販売者、購入者の設定なら商品情報モデル`model/product.rb`などに記述  
+<br>
+2. ActiveHashを使う（Gem）
+<br><br>
+
+**将来カテゴリの数が増える可能性があり、管理者が自由にカテゴリを追加・削除できるようにしたい場合**  
+<br>
+categoryテーブルにnameというカラムを作り、nameに"インテリア・住まい"、"本・ゲーム"などの値を保存  
+→ 商品テーブルにcategory_idカラムを作成する
+```ruby
+class CreateCategories < ActiveRecord::Migration[6.0]
+  def change
+    create_table :categories do |t|
+      t.string :name
+      t.integer :parent_id, null: true, index: true
+
+      t.timestamps
+    end
+  end
+end
+```
+
+カテゴリーが階層構造を持つ場合（大カテゴリー、小カテゴリーなど）、parent_id のようなカラムを使って親子関係を表現することもある  
+→ この場合、parent_id は自身のテーブルの id を参照する
+<br><br><br>
