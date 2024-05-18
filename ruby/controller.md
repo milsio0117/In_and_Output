@@ -108,3 +108,25 @@ end
         @tweets = Tweet.includes(:user).order("created_at DESC")
       end
 ```
+<br><br><br>
+
+## flashメッセージを表示させる
+例：記事の作成に成功した後に成功メッセージを表示する
+```ruby
+        def create
+          @article = Article.new(article_params)
+          if @article.save
+            flash[:notice] = "Article was successfully created."
+            redirect_to @article
+          else
+            render :new
+          end
+        end
+```
+
+ビューファイル
+```ruby
+         <% if flash[:notice] %>
+              <div class="flash">
+                <%= flash[:notice] %>
+```
