@@ -116,13 +116,20 @@ end
         def create
           @article = Article.new(article_params)
           if @article.save
-            flash[:notice] = "Article was successfully created."
+            flash[:notice] = "作成に成功しました"
             redirect_to @article
           else
             render :new
           end
         end
 ```
+redirect_toの場合は省略形でも書ける
+```ruby
+redirect_to @article, notice: "作成に成功しました"
+
+redirect_to root_url, alert: "ログインに問題が起こりました"
+```
+
 
 ビューファイル
 ```ruby
@@ -130,3 +137,14 @@ end
               <div class="flash">
                 <%= flash[:notice] %>
 ```
+
+notice,alert以外を定義する(apprication.html.erb)
+```ruby
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: "flash_#{name}" %>
+        <% end %>
+```
+→ flash[:success] = "作成に成功しました"  
+　flash[:error] = "失敗しました"  
+ なども使えるようになる。.flash_success、.flash_errorのclassも定義できる。
+ <br><br><br>
