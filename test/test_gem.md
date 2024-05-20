@@ -21,7 +21,7 @@
 ### パスワードに英数文字を含める
 最低アルファベット１、数字１を含める
 ```ruby
-      password { Faker::Lorem.characters(min_alpha: 1, min_numric: 1) }
+      password { Faker::Lorem.characters(min_alpha: 1, min_numeric: 1) }
 ```
 
 ### パスワードの文字数を指定
