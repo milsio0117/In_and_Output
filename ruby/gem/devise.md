@@ -4,7 +4,7 @@
 2.bundle install
 3.rails s    で再起動
 4.rails g devise:install
-5.rails g devise モデル名
+5.rails g devise モデル名　→devise_for:usersが入る
 6.rails db:migrate   ←migrate/xxxx_devise_create_users.rbでテーブルの設計確認後
 7.rails sで再起動
 8.rails g devise:views   必要なら編集
