@@ -7,6 +7,8 @@
       gem 'factory_bot_rails'
       gem 'faker'
     end
+
+    gem 'pri-rails'
 ```
 
 2. bundle install
@@ -87,3 +89,15 @@ expect {
 ### current_path
 文字通り、現在いるページのパスを示す。`expect(current_path).to eq root_path`と記述すれば、今いるページがroot_pathであることを確認できる
 
+
+## 生年月日などの日付テスト
+date_selectやdatetime_selectから返されるパラメーターをテストする  
+別々のプルダウンとして表示 → "date(1i)"（年）、"date(2i)"（月）、"date(3i)"（日）
+例のdate_selectフォーム
+```ruby
+<%= form.date_select :birthday %>
+```
+
+```
+user.birthday.year=""...
+```
