@@ -1,4 +1,4 @@
-# gem deviseの導入手順
+# deviseの導入手順
 ```
 1.gemfileにgem'devise'を入れる
 2.bundle install
