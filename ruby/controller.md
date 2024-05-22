@@ -95,6 +95,7 @@ end
      before_action :authenticate_user!
  end
 ```
+root_pathなどを除くときは except:[:index]　などをつける
 <br><br><br>
 
 ## 並び順を変える
