@@ -1,8 +1,14 @@
 # FactoryBot
 ```ruby
       FactoryBot.define do
-        factory :user do
-            nick_name { Faker::Name.name }
+        factory :message do
+          content {Faker::Lorem.sentence}
+          association :user      ←user,roomは外部キー
+          association :room
+      
+          after(:build) do |message|      ← 画像をつける場合。public/image下にファイルを用意する
+            message.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
+          end
         end
       end
 ```
