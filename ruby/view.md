@@ -114,3 +114,63 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
 ## インスタンスが空かどうか判断
 <% if @items.empty? %>  
 → 空の時の表示
+<br><br><br>
+
+
+## ドロップダウンリストを作成する
+```ruby
+collection_select(object, method, collection, value_method, text_method, options = {}, html_options = {})
+```
+
+```ruby
+例：疑似モデル
+
+         class PostagePayer < ActiveHash::Base
+           self.data = [
+             { id: 1, name: '---' },
+             { id: 2, name: '着払い(購入者負担)' },
+             { id: 3, name: '送料込み(出品者負担)' }
+           ]
+         
+           include ActiveHash::Associations
+           has_many :items
+         end
+の例
+<%= f.collection_select(:postage_payer_id, PostagePayer.all, :id, :name, {}, {class:"select-box", id:"item-postage_payer"}) %>
+
+```
+
+object: フォームに関連づけられているオブジェクト名(formの場合はすでに決まっているので不要)  
+
+method: ユーザが選択肢を選んだときにオブジェクト内で設定するべき属性の名前(≒カラム名)  
+
+collection: ユーザが選択できる選択肢を提供するオブジェクトの配列  
+
+value_method: 選択の値（通常はid）を提供するために各オブジェクトに送るメソッド名  
+
+text_method: 選択の表示テキストを提供するために各オブジェクトに送るメソッド名  
+
+optionsとhtml_options: 必須パラメータではないがカスタマイズを追加する時  
+
+
+<br>
+その他のoption例  
+
+```ruby
+{ selected: @item.shipping_day_id }
+
+↑選択リストが表示されたときに@itemオブジェクトのshipping_day_idがデフォルトで選択されている
+```
+
+```ruby
+{ prompt: 'Please select a shipping day' }
+
+↑選択したリストが表示された初めに「Please select a shipping day」が表示される
+```
+
+```ruby
+{ include_blank: '---' }
+
+↑ドロップダウンリストの先頭に空の選択肢を追加する。この場合は「---」が空の選択肢となる。
+```
+<br><br><br>
