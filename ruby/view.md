@@ -110,3 +110,7 @@ post ="hello!" という変数が_sample.html.erbテンプレート内で使え�
          <% end %>
 ```
 <br><br><br>
+
+## インスタンスが空かどうか判断
+<% if @items.empty? %>  
+→ 空の時の表示
