@@ -96,3 +96,47 @@ end
 カテゴリーが階層構造を持つ場合（大カテゴリー、小カテゴリーなど）、parent_id のようなカラムを使って親子関係を表現することもある  
 → この場合、parent_id は自身のテーブルの id を参照する
 <br><br><br>
+
+## 共通のバリデーションをまとめる
+```ruby
+      with_options presence: true do
+        validates :user, length: { minimum: 6 }
+        validates :item
+        validates :price, format: { with: /\A[0-9]+\z/ }
+        validates :email
+      end
+```
+presence:true をつけたうえで個別にバリデーションを追加
+
+```ruby
+      with_options presence: true do
+        validates :user
+        validates :item
+        with_options uniqueness: true do
+          validates :price
+          validates :email
+        end
+      end
+```
+presence:trueをつけたうえでuniqueness:trueもまとめる
+<br><br><br>
+
+## format
+
+|正規表現|	意味|
+|:---|:---|
+|/\A[ぁ-んァ-ヶ一-龥々ー]+\z/	|1字以上の全角ひらがな、全角カタカナ、漢字|
+|/\A[ァ-ヶー]+\z/	|1字以上の全角カタカナ|
+|/\A[a-z0-9]+\z/i	|1字以上の半角英数（大文字小文字問わない）|
+|/\A\d{3}[-]\d{4}\z/ |郵便番号（「-」を含む且つ7桁）|
+|greater_than_or_equal_to: 〇〇|〇〇と同じかそれ以上の数値|
+|less_than_or_equal_to: △△|	△△と同じかそれ以下の数値|
+
+```ruby
+  class Donation < ApplicationRecord
+      validates :price, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1000000, message: "is invalid"}
+  end
+```
+numericality →　数値かどうかを検証
+
+<br><br><br>
