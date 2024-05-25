@@ -1,3 +1,80 @@
+## 複数のモデルを一つのオブジェクトで扱う
+### formオブジェクトを作る
+* データベースに直接紐づかない
+* 複数のモデルに跨る保存処理をする
+* バリデーションがかけられる
+<br>
+
+### ActiveModel::Modelを使う
+  
+* Railsで提供されているモジュールの一つ。主にモデルが持つべき基本的な機能を提供。  
+* クラスにincludeすることで、そのクラスはActiveRecordモデルで利用可能な基本的な機能を使える。
+
+### 手順
+1. model直下にファイルを作成、クラスを定義
+2. 作成したクラスにform_withに対応する機能とバリデーションを行う機能を持たせる
+3. 保存したい複数のテーブルのカラム名すべてを扱えるようにする
+4. バリデーションの処理を書く
+5. データをテーブルに保存する処理を書く
+6. controllerのnew,createでformオブジェクトのインスタンスを生成するようにする
+7. form作成の部分をformオブジェクトのインスタンスを引数として渡す形に書く
+
+```ruby
+      class DonationAddress　　#手順 １
+        include ActiveModel::Model　　#手順２
+        attr_accessor :price, :user_id, :postal_code, :prefecture, :city, :house_number, :building_name　　#手順３
+      
+        with_options presence: true do　　#手順４
+          validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1000000, message: "is invalid"}
+          validates :user_id
+          validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+        end
+        validates :prefecture, numericality: {other_than: 0, message: "can't be blank"}
+      
+        def save　　#手順５
+          # 寄付情報を保存し、変数donationに代入する
+          donation = Donation.create(price: price, user_id: user_id)
+          # 住所を保存する
+          Address.create(postal_code: postal_code, prefecture: prefecture, city: city, house_number: house_number, building_name: building_name, donation_id: donation.id)
+        end
+      end
+```
+
+この時のcontroller
+
+```ruby
+class DonationsController < ApplicationController
+    before_action :authenticate_user!, except: :index
+
+    def index
+    end
+
+    def new
+        @donation_address = DonationAddress.new　　#new.html.erbでも使える → form_withで使える
+    end
+
+    def create
+        @donation_address = DonationAddress.new(donation_params)　#donation_paramsを持ったインスタンス
+        if @donation_address.valid?
+            @donation_address.save　#DonationAddressクラスのインスタンスなのでそのクラスのメソッドが使える
+            redirect_to root_path
+        else
+            render :new, status: :unprocessable_entity
+        end
+    end
+    #valid?メソッドを使用しているのは、ApplicationRecordを継承していないことによりsaveメソッドにはバリデーションを実行する機能がないため
+
+
+    private
+    
+    def donation_params
+        params.require(:donation_address).permit(:postal_code, :prefecture, :city, :house_number, :building_name, :price).merge(user_id: current_user.id)
+    end
+
+end
+```
+
+
 ## 親モデルと関連している子モデルに対する挙動を指定する
 dependent: をつけるとTweet（親）にいるcomments（子）も一緒に動く。親につける
 ```ruby
@@ -140,3 +217,4 @@ presence:trueをつけたうえでuniqueness:trueもまとめる
 numericality →　数値かどうかを検証
 
 <br><br><br>
+
