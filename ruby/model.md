@@ -73,6 +73,7 @@ class DonationsController < ApplicationController
 
 end
 ```
+<br><br><br>
 
 
 ## 親モデルと関連している子モデルに対する挙動を指定する
