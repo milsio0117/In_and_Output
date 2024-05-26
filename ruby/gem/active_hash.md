@@ -61,4 +61,6 @@ models/article.rb
       
        end
 ```
+呼び出しは（例）@article.genre.name  
+
 [active_hash](https://github.com/active-hash/active_hash)その他の設定・詳細
