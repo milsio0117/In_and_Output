@@ -226,3 +226,79 @@ export PAYJP_PUBLIC_KEY='pk_test_*************'
 19. 必要ならRenderにも環境変数を設定
 * dashboard → app → Environment
 * 公開鍵(PAYJP_PUBLIC_KEY)、秘密鍵(PAYJP_SECRET_KEY)を入力
+<br><br>
+
+### 全体
+js
+```js
+const pay = () => {
+    const publicKey = gon.public_key
+    const payjp = Payjp(publicKey) // PAY.JPテスト公開鍵
+    const elements = payjp.elements();
+    const numberElement = elements.create('cardNumber');
+    const expiryElement = elements.create('cardExpiry');
+    const cvcElement = elements.create('cardCvc');
+  
+    numberElement.mount('#number-form');
+    expiryElement.mount('#expiry-form');
+    cvcElement.mount('#cvc-form');
+  
+    const form = document.getElementById('charge-form')
+    form.addEventListener("submit", (e) => {
+      payjp.createToken(numberElement).then(function (response) {
+        if (response.error) {
+        } else {
+          const token = response.id;
+          const renderDom = document.getElementById("charge-form");
+          const tokenObj = `<input value=${token} name='token' type="hidden">`;
+          renderDom.insertAdjacentHTML("beforeend", tokenObj);
+        }
+        numberElement.clear();
+        expiryElement.clear();
+        cvcElement.clear();
+        document.getElementById("charge-form").submit();
+      });
+      e.preventDefault();
+    });
+  };
+  
+window.addEventListener("turbo:load", pay);
+window.addEventListener("turbo:render", pay);
+```
+
+controller
+```ruby
+class OrdersController < ApplicationController
+  def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    @order = Order.new
+  end
+
+  def create
+    @order = Order.new(order_params)
+    if @order.valid?
+      pay_item
+      @order.save
+      return redirect_to root_path
+    else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      render 'index', status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def order_params
+    params.require(:order).permit(:price).merge(token: params[:token])
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: order_params[:price],
+      card: order_params[:token],
+      currency: 'jpy'
+    )
+  end
+end
+```
