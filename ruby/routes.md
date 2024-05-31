@@ -6,12 +6,21 @@
 
 collectionルートはリソース全体に対して作用
 ```ruby
-        resources :tweets do
+        resources :tweets, only: :index do
           collection do
             get 'search'
           end
         end
+
+または
+
+         resources :tweets, only: :index do
+           get 'search', on: :collection
+         end
+
 ```
+
+
 
 → 得られるルーティング: `search_tweets    GET    /tweets/search(.:format)   tweets#search`  
 <br>
@@ -23,6 +32,13 @@ memberルートは特定の1つのリソースに対して作用 → 特定の�
             get 'search'
           end
         end
+
+または
+
+        resources :tweets do
+        　　get 'search', on: :member
+        end
+
 ```
 
 → 得られるルーティング: `search_tweet      GET    /tweets/:id/search(.:format)   tweets#search`
