@@ -12,7 +12,7 @@ collectionルートはリソース全体に対して作用
           end
         end
 
-または
+または追加したいアクションが１つだけの時は
 
          resources :tweets, only: :index do
            get 'search', on: :collection
