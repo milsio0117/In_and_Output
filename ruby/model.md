@@ -206,6 +206,7 @@ presence:trueをつけたうえでuniqueness:trueもまとめる
 |/\A[ぁ-んァ-ヶ一-龥々ー]+\z/	|1字以上の全角ひらがな、全角カタカナ、漢字|
 |/\A[ァ-ヶー]+\z/	|1字以上の全角カタカナ|
 |/\A[a-z0-9]+\z/i	|1字以上の半角英数（大文字小文字問わない）|
+|/\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i|英字と数字の両方を含める|
 |/\A\d{3}[-]\d{4}\z/ |郵便番号（「-」を含む且つ7桁）|
 |greater_than_or_equal_to: 〇〇|〇〇と同じかそれ以上の数値|
 |less_than_or_equal_to: △△|	△△と同じかそれ以下の数値|
@@ -215,7 +216,11 @@ presence:trueをつけたうえでuniqueness:trueもまとめる
       validates :price, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1000000, message: "is invalid"}
   end
 ```
-numericality →　数値かどうかを検証
-
+* numericality: 数値かどうかを検証
+* sub: 最初にマッチした１つだけを置換する　例）tel = '090-1234-5678'　tel.sub(/-/,'') →　0901234-5678"
+* gsub: 文字列内に指定した文字が複数含まれている場合、その全てを置換する　例）tel.gsub(/-/,'')　→　"09012345678"
+* @.+: ドメインを取り出す　例）@ ~  
+　.  ハイフンやピリオドなど含めた全ての英数字において、どの１文字にもマッチ  
+　+  直前の文字が１回以上の繰り返しにマッチ
 <br><br><br>
 
