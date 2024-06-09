@@ -1,7 +1,8 @@
 ### 日付の取得（YYYY-MM-DD）
 ```js
-   ${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}
-    -${date.getDate().toString().padStart(2, '0')}
+   const date = new Date(item.created_at);
+   const formattedDate = `${date.getFullYear()}-
+　　　${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
 ```
 
 * date.getFullYear()：年を4桁の数字で返す。2022年であれば「2022」を返す。
