@@ -174,3 +174,61 @@ optionsとhtml_options: 必須パラメータではないがカスタマイズ�
 ↑ドロップダウンリストの先頭に空の選択肢を追加する。この場合は「---」が空の選択肢となる。
 ```
 <br><br><br>
+
+## 日付を書式指定して文字列に変換
+### lメソッドを使う
+
+config/apprication.rb
+```ruby
+         class Application < Rails::Application
+             # Initialize configuration defaults for originally generated Rails version.
+             config.load_defaults 7.0
+         
+             config.autoload_paths << Rails.root.join('app/services')
+         
+             config.time_zone = "Asia/Tokyo"
+             # デフォルトのロケールを日本（ja）に設定
+             config.i18n.default_locale = :ja # 追記
+```
+
+config/locales/ja.yml
+```ruby
+         ja:
+           time:
+             formats:
+               default: "%Y/%m/%d %H:%M:%S"　# デフォルト表記
+               short: "%m/%d" #日付だけ
+               time: "%H:%M" #時刻だけ
+
+```
+
+view
+```ruby
+         <td><%= l memo.created_at %></td> # → 投稿日時：2024/06/10 12:09:03
+```
+デフォルト表記
+
+```ruby
+         <td><%= l memo.created_at, format: :short %></td>  # → 投稿日時：06/10
+```
+ja.ymlで設定しておけばビューごとにフォーマットも選べる  
+<br>
+※Viewではlと書くだけでOKだが、lメソッドがヘルパーメソッドとして提供されていない場所（Modelなど）ではlだけではNoMethodErrorとなる。  
+その場合は、lの代わりにI18n.lと書けば日時をフォーマットすることができる。
+<br><br>
+### strftimeを使う
+```ruby
+         <%= @message.created_at.strftime("%Y年%m月%d日%H時%M分") %>
+```
+
+長いのでmodelでメソッドを規定
+```ruby
+         def set_date
+           created_at.strftime("%Y年%m月%d日%H時%M分")
+         end
+```
+
+viewがすっきりする
+```ruby
+         <%= @message.set_date %>
+```
