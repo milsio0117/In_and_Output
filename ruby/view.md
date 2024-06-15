@@ -232,3 +232,68 @@ viewがすっきりする
 ```ruby
          <%= @message.set_date %>
 ```
+<br><br><br>
+
+## どのアクションから送られてきたかの分岐
+1.  2つ以上の異なるアクションから1つのビューに送信され、ビューでその表示を分岐したい場合  
+ → 遷移するリンクに元のアクション名（indexまたはhistory）を示すパラメータ（例えばorigin）を追加  
+ 例）indexとhistoryからshowに行き、そこで表示の分岐をする
+```ruby
+          # history.html.erb //historyから来たことを明記
+         <%= link_to "#{stock.ticker} - #{stock.name}", stock_path(stock, origin: 'history') %>
+
+         # index.html.erb //indexから来たことを明記
+         <%= link_to "#{stock.ticker} - #{stock.name}", stock_path(stock, origin: 'index') %>
+```
+
+show.html.erb
+```ruby
+         <% if params[:origin] == 'history' %>
+           # historyから来た場合の処理
+         <% else %>
+           # その他から来た場合の処理
+         <% end %>
+```
+※他のアクションから遷移した場合の挙動は別途考慮する必要がある  
+controller
+```ruby
+         def show
+           if params[:origin] == 'history'
+             @stocks = Stock.archived
+           else
+             @stocks = Stock.active
+           end
+         end
+```
+> [!NOTE]
+> origin: 'history'という表記は、Rubyのハッシュというデータ型を利用したもの。  
+> この場合はoriginがキー、'history'がその値。文字の規定はない。  
+> この記述がpathに渡されると、生成されるURLの末尾に?origin=historyというクエリパラメータが付加される。  
+> それにより、次にアクセスするページ側でparams[:origin]の形でこの値を取得することが可能になる。  
+<br>
+
+2. 元のアクション名をセッションに保持する  
+controller
+```ruby
+         def index
+           session[:origin_action] = 'index'
+         end
+         
+         # historyアクション
+         def history
+           session[:origin_action] = 'history'
+         end
+```
+
+view
+```ruby
+         <% if session[:origin_action] == 'history' %>
+           # sessionがhistoryだった時の処理
+         <% else %>
+           # その他の時の処理
+         <% end %>
+```
+>[!note]
+>セッションを利用してorigin_actionというキーに'history'という値を保存している。  
+>セッションはブラウザが閉じられるまでの間、サーバー側で状態を保持するための仕組み。  
+>ここでは、どのアクションがユーザーによって最後に呼び出されたかを追跡する。  
