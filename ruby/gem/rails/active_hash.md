@@ -1,5 +1,5 @@
 # データベースを使わないモデルを作成する
-
+rails/
 ## 導入
 `gem 'active_hash'` → bundle install
 
