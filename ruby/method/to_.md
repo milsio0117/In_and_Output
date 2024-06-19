@@ -9,3 +9,26 @@
   ("a".."g").to_a
   => ["a", "b", "c", "d", "e", "f", "g"]
 ```
+## join
+### 配列を結合する
+```ruby
+  array = ['ruby', 'python']
+  p array.join
+   => "rubypython"
+```
+
+区切り文字を指定する
+```ruby
+  array = ['ruby', 'python','java']
+  p array.join(',')
+  => "ruby,python,java"
+```
+
+## concat
+### 配列の末尾に要素を連結する
+```ruby
+  array = ['ruby', 'python','java']
+  array2 = ["swift","php"]
+  p array.concat(array2)
+  => ["ruby", "python", "java", "swift", "php"]
+```
