@@ -24,6 +24,11 @@
   => "ruby,python,java"
 ```
 
+長さ3の配列を作り、改行を除いてgetsし、|でjoinする
+```ruby
+  puts Array.new(3) { gets.chomp }.join('|')
+```
+
 ## concat
 ### 配列の末尾に要素を連結する
 ```ruby
