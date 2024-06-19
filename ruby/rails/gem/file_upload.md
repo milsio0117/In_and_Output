@@ -7,7 +7,7 @@
  `MiniMagick` : ImageMagick の機能をRubyで扱えるようにしてくれるGem  
  <br>
  `ImageProcessing` : MiniMagick では提供できない画像サイズを調整する機能を提供するGem  
- 
+
 <br>
 手順：  
 
