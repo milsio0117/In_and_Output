@@ -1,6 +1,25 @@
 ## attr_accessor
+* インスタンス変数にクラスの外部からアクセスするにはインスタンスメソッドで経由する必要がある
 * クラス内でしか参照できないインスタンス変数をクラスの外から直接操作できるようにする
-* 
+1. メソッドを経由する場合
+```ruby
+class Article
+  def initialize(author, title)
+    @author = author
+    @title = title
+  end
+
+  def display
+    puts "著者: #{@author}"
+    puts "タイトル: #{@title}"
+  end
+end
+
+article = Article.new("しお", "おいしいシードについて")
+article.display
+```
+
+2. accessorを使う場合
 ```ruby
   class Article
       attr_accessor :author, :title #ここ
@@ -17,7 +36,7 @@
   puts "タイトル: #{article.title}"  #タイトル: おいしいシードについて
 ```
 
-これは↓と同じ
+3. ゲッター、セッターを使う場合
 ```ruby
   class Article
     def initialize(author, title)
@@ -25,7 +44,7 @@
       @title = title
     end
   
-    # ゲッター（ = attr_reader:）
+    # ゲッター（ = attr_reader）
     def author
       @author
     end
@@ -34,7 +53,7 @@
       @title
     end
   
-    # セッター（ = attr_writer:）
+    # セッター（ = attr_writer）
     def author=(author)
       @author = author
     end
@@ -50,8 +69,9 @@
   puts "タイトル: #{article.title}" # タイトル: おいしいシードについて
 ```
 
-ゲッターは読み専門で更新されたくないとき、  
-セッターはユーザー入力などで入力のエラーを正規化するときに定義したりする
+attr_reader(ゲッター)は読み専門で更新されたくないとき、  
+attr_writer(セッター)は更新だけしたいとき、  
+セッターメソッドはユーザー入力などで入力のエラーを正規化するときに定義したりする
 
 ```ruby
     def name=(name) # セッター
