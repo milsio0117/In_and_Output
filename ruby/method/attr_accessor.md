@@ -1,0 +1,64 @@
+## attr_accessor
+* クラス内でしか参照できないインスタンス変数をクラスの外から直接操作できるようにする
+* 
+```ruby
+  class Article
+      attr_accessor :author, :title #ここ
+  
+    def initialize(author, title) # 初期化
+      @author = author
+      @title = title
+    end
+  end
+    
+  article =Article.new("しお","おいしいシードについて")
+  
+  puts "著者: #{article.author}"　#著者: しお
+  puts "タイトル: #{article.title}"  #タイトル: おいしいシードについて
+```
+
+これは↓と同じ
+```ruby
+  class Article
+    def initialize(author, title)
+      @author = author
+      @title = title
+    end
+  
+    # ゲッター（ = attr_reader:）
+    def author
+      @author
+    end
+  
+    def title
+      @title
+    end
+  
+    # セッター（ = attr_writer:）
+    def author=(author)
+      @author = author
+    end
+  
+    def title=(title)
+      @title = title
+    end
+  end
+  
+  article = Article.new("しお", "おいしいシードについて")
+  
+  puts "著者: #{article.author}" # 著者: しお
+  puts "タイトル: #{article.title}" # タイトル: おいしいシードについて
+```
+
+ゲッターは読み専門で更新されたくないとき、  
+セッターはユーザー入力などで入力のエラーを正規化するときに定義したりする
+
+```ruby
+    def name=(name) # セッター
+        @name = name.tr("０-９ａ-ｚＡ-Ｚ", "0-9a-zA-Z") # 全角英数字を半角化
+          .gsub(/\A[[:space:]]+|[[:space:]]+\z/, "")  # 先頭・末尾のスペース類削除
+    end
+
+    movie = Movie.new("　　華氏１１９　")
+    p movie.name # => "華氏119"
+```
