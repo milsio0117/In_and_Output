@@ -121,51 +121,25 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
 カラムにnullがあるとデータは取ってこれない。nullも含める場合はJOIN →` LEFT JOIN `とする
 <br>
 
-* 
+* レコードを追加する
 ```sql
-  SELECT COUNT(name)
-  FROM purchases;
+  例）データベース：studentsテーブル/ id, name, courseのカラム
+  INSERT INTO students (name,course)
+  VALUES ("Kate","Java");
 ```
 <br>
 
-* 
+* レコードを変更する
 ```sql
-  SELECT COUNT(name)
-  FROM purchases;
+  UPDATE students
+   SET name='Jordan', course='HTML'
+   WHERE id=6;  --これがないと全部変更される！戻せないので忘れないように
 ```
 <br>
 
-* 
+* レコードを削除する
 ```sql
-  SELECT COUNT(name)
-  FROM purchases;
-```
-<br>
-
-* 
-```sql
-  SELECT COUNT(name)
-  FROM purchases;
-```
-<br>
-
-* 
-```sql
-  SELECT COUNT(name)
-  FROM purchases;
-```
-<br>
-
-* 
-```sql
-  SELECT COUNT(name)
-  FROM purchases;
-```
-<br>
-
-* 
-```sql
-  SELECT COUNT(name)
-  FROM purchases;
+  DELETE FROM students
+  WHERE id = 7;  --これがないと全部削除される！戻せないので忘れないように
 ```
 <br>
