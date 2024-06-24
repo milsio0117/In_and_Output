@@ -1,7 +1,6 @@
 ## to_a
 ### 配列に変換する
-
-1. 範囲オブジェクトに使う
+範囲オブジェクトに使う場合
 ```ruby
   (1..10).to_a
   => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -9,6 +8,22 @@
   ("a".."g").to_a
   => ["a", "b", "c", "d", "e", "f", "g"]
 ```
+
+## sub
+### マッチした最初の一箇所を置換する
+` 文字列.sub(/正規表現/, '変換後の文字') `
+```ruby
+string = "ruby ruby ruby"
+puts string.sub(/ruby/, 'python')  # python ruby ruby
+```
+
+## gsub
+### マッチした部分をすべて置換する
+```ruby
+string = "ruby ruby ruby"
+puts string.gsub(/ruby/, 'python')  # python python python
+```
+
 ## join
 ### 配列を結合する
 ```ruby
@@ -48,6 +63,68 @@
   end
 ```
 
+## slice
+### 配列や文字列から指定した要素を取り出す。元の配列は変わらない
+```ruby
+array = [0,1,2,3,4,5,6]
 
-## slice!
-### 指定した範囲を文字列から取り除いたうえ、取り除いた部分文字列を返す
+ele = array.slice(1)
+puts ele  # 1
+```
+これはsliceがなくても同じ
+
+```ruby
+ele = array[1]
+puts ele  # 1
+```
+
+引数の時はsliceを使わないと取れない
+```ruby
+def example(str)
+    puts str.slice(1)
+end
+
+example('Hello')  # e
+
+
+def example(str)
+    puts str(1)
+end
+
+example('Hello') # error!
+```
+
+## slice!(破壊的Slice)
+### 指定した範囲を文字列から取り除いたうえ、取り除いた部分文字列を返す  
+```ruby
+array = [0, 1, 2, 3, 4, 5]
+num = array.slice!(1)
+
+p num  # 1
+p array # [0, 2, 3, 4, 5]
+
+```
+
+## scan
+### 引数で指定した正規表現のパターンからマッチした文字列を取得していき、配列として返す  
+` 調べる元の文字列".scan"調べたい文字列or正規表現 `
+```ruby
+  "foobar".scan(/../)    # => ["fo", "ob", "ar"]　# (/ww/)も同じ
+  "foobar".scan("o")     # => ["o", "o"]
+  "foobarbazfoobarbaz".scan(/ba./)    # => ["bar", "baz", "bar", "baz"]
+```
+
+## index
+### 文字列や配列の中に指定した文字列が含まれていた場合、その文字列の開始位置を整数の値で返す
+` str.index(検索したい文字列, [開始する位置]) `
+```ruby
+  def count_code(str)
+   puts str.index("code") +1  # 文字の0番目を1と表示させる場合
+  end
+  
+  count_code("codexxcode") # 1
+```
+
+## even?
+### 対象の数値が偶数かどうかを判断する。奇数はodd?
+### 与えられた整数が偶数であればtrue、奇数であればfalseを返す。小数点(float)はNoMethodErrorとなる
