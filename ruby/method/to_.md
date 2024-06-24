@@ -37,3 +37,17 @@
   p array.concat(array2)
   => ["ruby", "python", "java", "swift", "php"]
 ```
+
+## each_with_index
+### 要素の繰り返し処理と同時に、その要素が何番目に処理されたのかも表す
+```ruby
+  fruits = ["メロン", "バナナ", "アップル"]
+  
+  fruits.each_with_index do |item, i|
+   puts "#{i}番目のフルーツは、#{item}です。"
+  end
+```
+
+
+## slice!
+### 指定した範囲を文字列から取り除いたうえ、取り除いた部分文字列を返す
