@@ -154,3 +154,28 @@ include?と一緒に使う応用系
   p array.map{|num| num*3 if num > 3}  # [nil,nil,nil,12,15]
 ```
 
+## digits
+### 桁ごとの数字を一つずつ配列の中に入れる。対象は非負整数のみ
+```ruby
+  1234.digits　　# [4, 3, 2, 1]　逆から取られる
+```
+
+## chars
+### 1文字ずつ分割し配列を作る
+```ruby
+  "hello".chars　　# ["h", "e", "l", "l", "o"]
+```
+文字列が数字だと、他のメソッドと組み合わせ「各位を足しあわせた合計値」が出せる
+```ruby
+  list = "12345".chars.map(&:to_i)
+  p list    # [1, 2, 3, 4, 5]
+  p list.sum    # 15
+```
+
+## abs
+### 絶対値を取得する
+```ruby
+  num = 5.abs    # 5
+  
+  num = (-5).abs    # 5
+```
