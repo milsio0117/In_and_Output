@@ -16,39 +16,36 @@
   => ["a", "p", "p", "l", "e", " ", "o", "r", "a", "n", "g", "e", "\n"]  #改行も含まれる
 ```
 
-3. mapを組み合わせる
-```ruby
-  gets.split.map(&:to_i)
-  300 456
-  => [300, 456]
-```
-
-4. , で区切る
+3. , で区切る
 ```ruby
    'Yamada, Satou, Itou, Suzuki'.split(',')
   => ["Yamada", " Satou", " Itou", " Suzuki"]
 ```
 
-5. 分割数の指定
+4. 分割数の指定
 ```ruby
    'Yamada, Satou, Itou, Suzuki'.split(',', 2)
   => ["Yamada", " Satou, Itou, Suzuki"]
 ```
 
-6. 分割数の制限
+5. 分割数の制限
 ```ruby
    'Yamada, Satou, Itou, Suzuki'.split(',').first
   => "Yamada"
 ```
 
-7. 最初の要素だけを取り出す
+6. 最初の要素だけを取り出す
 ```ruby
   first = "abc,def,g".split(',', 2).first
   => "abc"
 ```
 
-8. mapと組み合わせる
+7. mapと組み合わせる
 ```ruby
    "1,2,55,6,9,3".split(',').map(&:to_i)
   => [1, 2, 55, 6, 9, 3] #strからintに
+
+  gets.split.map(&:to_i)
+  300 456
+  => [300, 456]
 ```
