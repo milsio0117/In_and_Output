@@ -172,12 +172,6 @@ include?と一緒に使う応用系
   p list.sum    # 15
 ```
 
-## delimite
-### 絶対値を取得する
-```ruby
-  12345678.to_s(:delimited, delimiter: '.')  # => 12.345.678
-  12345678.to_s(:delimited, delimiter: ',')  # => 12,345,678
-```
 
 ## abs
 ### 絶対値を取得する
