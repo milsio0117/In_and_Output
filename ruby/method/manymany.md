@@ -172,21 +172,31 @@ include?と一緒に使う応用系
   p list.sum    # 15
 ```
 
-
-## abs
-### 絶対値を取得する
+## format
+### 引数をフォーマットした文字列を返す
+format("フォーマット文字列", 形成元1, 形成元2, ...)
+* %が開始記号
+* %dは整数を、%fは浮動小数点数を、%sは文字列を表す
+* %,dは整数を3桁ごとにカンマで区切って出力する
 ```ruby
-  num = 5.abs    # 5
-  
-  num = (-5).abs    # 5
+  number = 1000
+  formatted_number = format("%,d", number)
+  puts formatted_number  # 1,000
 ```
 
-## abs
-### 絶対値を取得する
+* %.2fは浮動小数点数を小数点以下2桁に丸めて出力する
 ```ruby
-  num = 5.abs    # 5
-  
-  num = (-5).abs    # 5
+  pi = 3.14159265
+  formatted_pi = format("%.2f", pi)
+  puts formatted_pi  # 3.14
+```
+
+* パーセンテージ表記を出力する  
+( %記号自体を出力するためには%%と2つ続けて使用 )
+```ruby
+  rate = 0.756
+  formatted_rate = format("%.2f%%", rate * 100)
+  puts formatted_rate
 ```
 
 ## abs
