@@ -199,6 +199,13 @@ format("フォーマット文字列", 形成元1, 形成元2, ...)
   puts formatted_rate
 ```
 
+* 動的なフォーマット指定子を出力する
+```ruby
+  formatted_n = format("%.#{m}f", n)  # 変数が入れられる
+  puts formatted_n
+```
+
+
 ## abs
 ### 絶対値を取得する
 ```ruby
