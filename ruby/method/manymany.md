@@ -208,19 +208,23 @@ format("フォーマット文字列", 形成元1, 形成元2, ...)
 
 * 別の書き方
 ```ruby
-  a = i * j
-  formatted_string = format("%#2d", a)　# 数字を2桁に
+  formatted_string = format("%#2d", i * j)　# スペースを入れて数字を計2桁に
 　# 上下は同じ
   formatted_string = "%#2d" % (i * j)
 ```
 
 
-## abs
-### 絶対値を取得する
+## dup ,clone
+### オブジェクトのコピーを作る
+* a = origin (代入)の時とは違い別のオブジェクトを作る。（代入されると挙動も同じになる）
+* どちらもidがoriginとは異なるものができる。
+* 違いは dup：	凍結状態、特異メソッドをコピーしない。clone：凍結状態、特異メソッドをコピーする。
 ```ruby
-  num = 5.abs    # 5
+  origin = ["a", "b", "c"]
+  clone = origin.dub  # コピーを作成
   
-  num = (-5).abs    # 5
+  origin = ["a", "b", "c"]
+  clone = origin.clone  # コピーを作成
 ```
 
 ## abs
