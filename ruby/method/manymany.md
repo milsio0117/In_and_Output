@@ -131,9 +131,24 @@ p array # [0, 2, 3, 4, 5]
 
 
 ## select
-### 条件式に一致した要素を取得する。条件以外の時はreject
+### 条件式に一致した（真）要素を取得する
 ### 変数に要素を一つずつ格納しながら処理が真になったときの要素を取得していき、新しい配列として返す
-` 配列.select { |変数| 処理 } `
+` 配列.select { |変数| 条件 } `
+```ruby
+  array = [1,2,3,4,5]
+  p array.select { |num| num > 3 }　# [4, 5]
+```
+
+include?と一緒に使う応用系
+```ruby
+  array = ["right","light","erect","elect"]
+  p array.select{|a| a.include?("ect")}  # ["erect", "elect"]
+```
+
+## reject
+### 条件が一致しない（偽）要素を取得する
+### 変数に要素を一つずつ格納しながら処理が真になったときの要素を取得していき、新しい配列として返す
+` 配列.reject {|変数| 条件} ` または ` ハッシュ.reject {|キー, 値| 条件} `
 ```ruby
   array = [1,2,3,4,5]
   p array.select { |num| num > 3 }　# [4, 5]
@@ -227,12 +242,41 @@ format("フォーマット文字列", 形成元1, 形成元2, ...)
   clone = origin.clone  # コピーを作成
 ```
 
-## abs
-### 絶対値を取得する
+## random
+### 疑似乱数を返す
 ```ruby
-  num = 5.abs    # 5
-  
-  num = (-5).abs    # 5
+ rand # 疑似乱数浮動小数点数を返す
+　=> 0.2575753533357512
+
+ rand(1..5) # rangeで指定された範囲の値を返す
+　=> 5
+
+ rand(5) # 0以上5未満の整数を返す。仮に(5.5)としても(5)と見なされる。
+　=> 2
+```
+
+Randomクラスを使うと小数点の範囲も出せる
+```ruby
+ Random.rand(5.5) # 5.5が渡されたと認識される
+  => 2.2116582489574736
+
+ Random.rand(5.5).floor(3)
+  => 5.297  # 小数点以下3桁を切り上げて取得する
+
+ Random.rand(5.5).ceil(2) 
+  => 1.96 # 小数点以下2桁を切り捨てて取得する
+```
+
+
+## sample
+### 配列の要素1つをランダムに取得する
+```ruby
+  fruits = ["apple", "orange", "melon", "banana", "pineapple"]
+
+  p fruits.sample  # 引数なしの場合1つ
+  =>"orange"
+  p fruits.sample(2)  # 引数で数指定
+  =>"melon","pineapple"
 ```
 
 ## abs
