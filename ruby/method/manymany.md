@@ -128,7 +128,7 @@ p array # [0, 2, 3, 4, 5]
 ## even?
 ### 対象の数値が偶数かどうかを判断する。奇数はodd?
 ### 与えられた整数が偶数であればtrue、奇数であればfalseを返す。小数点(float)はNoMethodErrorとなる
-
+<br>
 
 ## select
 ### 条件式に一致した（真）要素を取得する
@@ -136,28 +136,31 @@ p array # [0, 2, 3, 4, 5]
 ` 配列.select { |変数| 条件 } `
 ```ruby
   array = [1,2,3,4,5]
-  p array.select { |num| num > 3 }　# [4, 5]
+  p array.select { |num| num > 3 }　# => [4, 5]
 ```
 
 include?と一緒に使う応用系
 ```ruby
   array = ["right","light","erect","elect"]
-  p array.select{|a| a.include?("ect")}  # ["erect", "elect"]
+  p array.select{|a| a.include?("ect")}  # => ["erect", "elect"]
 ```
 
 ## reject
 ### 条件が一致しない（偽）要素を取得する
 ### 変数に要素を一つずつ格納しながら処理が真になったときの要素を取得していき、新しい配列として返す
-` 配列.reject {|変数| 条件} ` または ` ハッシュ.reject {|キー, 値| 条件} `
+` 配列.reject {|変数| 条件} ` または ` ハッシュ.reject {|キー, 値| 条件} `  
+配列
 ```ruby
-  array = [1,2,3,4,5]
-  p array.select { |num| num > 3 }　# [4, 5]
+  array = [1,2,3,4,5,6,7]
+  p array.reject {|item| item % 2 == 0}  # => [1, 3, 5, 7]
 ```
 
-include?と一緒に使う応用系
+hash
 ```ruby
-  array = ["right","light","erect","elect"]
-  p array.select{|a| a.include?("ect")}  # ["erect", "elect"]
+  fruits = {"apple" => 100, "orange" => 120, "meloln" => 700, "banana" => 80}
+    
+  # 値が100以下の要素を取得
+  p fruits.reject {|key, value| value > 100}　# => {"apple"=>100, "banana"=>80}
 ```
 
 
@@ -165,8 +168,11 @@ include?と一緒に使う応用系
 ### 要素に変更を加えて新たな配列を返す
 ```ruby
   array = [1,2,3,4,5]
-  p array.select{|num| num > 3}  # [4,5] 要素の絞り込みを行うだけ
-  p array.map{|num| num*3 if num > 3}  # [nil,nil,nil,12,15]
+
+  p array.map{|num| num*3 if num > 3}  # => [nil,nil,nil,12,15]　条件に当てはまらなければnilが返る
+
+  # 条件に当てはまらないときはそのまま出力変えない場合の記述
+  p array.map{|num| num > 3 ? num * 3 : num}  # => [1, 2, 3, 12, 15]
 ```
 
 ## digits
