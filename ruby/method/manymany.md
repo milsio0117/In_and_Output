@@ -286,9 +286,23 @@ Randomクラスを使うと小数点の範囲も出せる
 ```
 
 ## while
-### 入力が続く間getsする
+### 入力が続く間ループを動かす
 ```ruby
   while line = gets
     ......
   end
+```
+
+## max,min
+### 配列の中の最大、最小を求める
+```ruby
+ [5, 6, 2, 9, 8, 3].max　# => 9
+ [5, 6, 2, 9, 8, 3].max(3)  # => [9, 8, 6]
+```
+応用
+```ruby
+  student_point = 10
+  lack_point =  15
+  final_point = [student_point - lack_point , 0].max　# -5 と 0 を比較
+  # 点数がマイナスになったら0にする = 最小0
 ```
