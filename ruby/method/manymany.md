@@ -285,10 +285,10 @@ Randomクラスを使うと小数点の範囲も出せる
   =>"melon","pineapple"
 ```
 
-## abs
-### 絶対値を取得する
+## while
+### 入力が続く間getsする
 ```ruby
-  num = 5.abs    # 5
-  
-  num = (-5).abs    # 5
+  while line = gets
+    ......
+  end
 ```
