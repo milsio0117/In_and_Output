@@ -285,12 +285,31 @@ Randomクラスを使うと小数点の範囲も出せる
   =>"melon","pineapple"
 ```
 
-## while
-### 入力が続く間ループを動かす
+## while, readline
+### 入力が続く間、入力を読み取る
+` while `  
+* 一行ずつ読み取り処理をし、入力が終わるまでループする（入力→処理→入力→処理…）
+* リアルタイムでユーザーから入力を受け取り処理する場合に使う（チャットボットなど）
 ```ruby
   while line = gets
-    ......
+    puts line.chomp  # => "banana"
   end
+```
+
+` readline `
+* 入力が終わった時点で一度に全てを読み取り配列にする
+* 入力データを一度に処理する場合に使う
+```ruby
+  input = readlines
+  input.each do |line|
+    puts line.chomp
+  end
+```
+
+配列で出力
+```ruby
+  input = readlines(chomp:true)  # => ["banana", "apple", "orange"]　"banana\n"となっているので改行を取る
+  p input
 ```
 
 ## max,min
