@@ -1,3 +1,21 @@
+ruby % ruby test.rb
+
+## upto
+### オブジェクト数値～引数の数値まで処理する
+```ruby
+  3.upto(5) do |num|
+    p "number_" + num.to_s  # => "number_3", "number_4", "number_5"
+  end
+```
+
+## downto
+### オブジェクト数値～引数の数値まで処理する
+```ruby
+  5.downto(3) do |num|
+    p "number_" + num.to_s  # => "number_5", "number_4", "number_3"
+  end
+```
+
 ## div
 ### 商を整数で返す
 ```ruby
