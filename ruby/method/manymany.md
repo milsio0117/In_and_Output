@@ -85,7 +85,17 @@ puts string.gsub(/ruby/, 'python')  # python python python
   fruits = ["メロン", "バナナ", "アップル"]
   
   fruits.each_with_index do |item, i|
-   puts "#{i}番目のフルーツは、#{item}です。"
+   puts "#{i+1}番目のフルーツは、#{item}です。"　# => 1番目のフルーツは、メロンです。
+  end
+```
+
+## each.with_index
+### indexの開始位置、メソッドのチェーンができる
+```ruby
+  fruits = ["メロン", "バナナ", "アップル"]
+  
+  fruits.each.with_index(1) do |item, i|  # indexの始まりを指定できる
+   puts "#{i}番目のフルーツは、#{item}です。"　# => 1番目のフルーツは、メロンです。
   end
 ```
 
