@@ -18,6 +18,39 @@
 ```
 <br>
 
+* 特定の範囲を含むデータを検索
+```sql
+  SELECT * 
+  FROM users 
+  WHERE age BETWEEN 21 AND 24;  --21～24歳の人
+```
+<br>
+
+* 当てはまるデータを検索
+```sql
+  SELECT *
+  FROM users
+  WHERE prefecture IN ("東京都", "神奈川県");  --東京、神奈川の住所の人
+```
+<br>
+
+* 当てはまらないデータを検索
+```sql
+  SELECT *
+  FROM users
+  WHERE prefecture NOT IN ("東京都", "神奈川県");  --東京、神奈川「以外」の住所の人
+```
+<br>
+
+* 指定したデータが存在していた場合に目的のデータを検索
+```sql
+  SELECT * FROM users
+  WHERE EXISTS
+  (SELECT * FROM users
+  WHERE age = 25);    -- 25歳の人が存在した場合にすべてのデータを検索
+```
+<br>
+
 * 空欄のデータを検索
 ```sql
   SELECT *
