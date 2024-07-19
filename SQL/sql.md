@@ -6,7 +6,7 @@
 ```
 <br>
 
-* 含まない、一致しないデータ
+* 含まない、一致しないデータを検索
 ```sql
   SELECT *
   FROM purchases
@@ -18,7 +18,7 @@
 ```
 <br>
 
-* 空欄のデータ
+* 空欄のデータを検索
 ```sql
   SELECT *
   FROM purchases
@@ -26,7 +26,7 @@
 ```
 <br>
 
-* 空欄でないデータ
+* 空欄でないデータを検索
 ```sql
   SELECT *
   FROM purchases
@@ -34,7 +34,7 @@
 ```
 <br>
 
-* 複数の条件
+* 複数の条件を検索
 ```sql
   SELECT *
   FROM purchases
