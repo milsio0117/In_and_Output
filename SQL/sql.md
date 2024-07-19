@@ -127,6 +127,12 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
   INSERT INTO students (name,course)
   VALUES ("Kate","Java");
 ```
+カラム名を書かない場合、VALUESにはカラムの数だけ値を指定する（数が合わないとエラーになる）
+```sql
+  例）データベース：studentsテーブル/ id, name, courseのカラム
+  INSERT INTO students
+  VALUES (3, "Kate", "Java");
+```
 <br>
 
 * レコードを変更する
