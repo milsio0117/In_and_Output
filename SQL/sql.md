@@ -132,8 +132,8 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
 * レコードを変更する
 ```sql
   UPDATE students
-   SET name='Jordan', course='HTML'
-   WHERE id=6;  --これがないと全部変更される！戻せないので忘れないように
+  SET name='Jordan', course='HTML'
+  WHERE id=6;  --これがないと全部変更される！戻せないので忘れないように
 ```
 <br>
 
