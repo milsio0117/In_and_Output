@@ -182,3 +182,20 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
   WHERE id = 7;  --これがないと全部削除される！戻せないので忘れないように
 ```
 <br>
+
+* ビューにまとめる
+```sql
+  CREATE VIEW UsersInKanto(family_name, first_name, age, prefecture)  --CREATE VIEW ビュー名(カラム名1, カラム名2, ...)
+  AS
+  SELECT family_name, first_name, age, prefecture
+  FROM users
+  WHERE prefecture IN("東京都", "神奈川県", "埼玉県", "千葉県")
+  ORDER BY prefecture;
+```
+
+使うとき
+
+```sql
+  SELECT *
+  FROM UsersInKanto;
+```
