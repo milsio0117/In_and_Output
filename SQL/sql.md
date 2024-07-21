@@ -1,3 +1,4 @@
+# DML
 * 特定の文字を含むデータを検索
 ```sql
   SELECT *
@@ -198,4 +199,28 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
 ```sql
   SELECT *
   FROM UsersInKanto;
+```
+<br>
+
+# DCL
+* トランザクション全体の構文
+* 例）BankAccountテーブル
+
+| AccountNumber | Name | Balance |
+|:---:|:---:|:---:|
+| 1234567 | A | 50,000 |
+| 7654321 | B | 50,000 |
+
+```sql
+  START TRANSACTION;  -- トランザクション開始文(MySQLの場合)
+  
+    UPDATE BankAccount SET Balance = Balance - 10000 
+    WHERE AccountNumber = 1234567;    -- Aさんの口座から1万円をマイナス
+  
+    UPDATE BankAccount SET Balance = Balance + 10000 
+    WHERE AccountNumber = 7654321;  　-- Bさんの口座に1万円をプラス
+  
+  COMMIT;　  -- トランザクション終了文。変更を確定して終了
+　　--または
+　ROLLBACK;  -- 変更を破棄して終了
 ```
