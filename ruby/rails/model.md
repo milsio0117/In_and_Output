@@ -199,7 +199,7 @@ presence:true をつけたうえで個別にバリデーションを追加
 presence:trueをつけたうえでuniqueness:trueもまとめる
 <br><br><br>
 
-## format
+## よく使うformat
 
 |正規表現|	意味|
 |:---|:---|
@@ -224,3 +224,39 @@ presence:trueをつけたうえでuniqueness:trueもまとめる
 　+  直前の文字が１回以上の繰り返しにマッチ
 <br><br><br>
 
+## トランザクションを行う
+
+```ruby
+  ActiveRecord::Base.transaction do
+    # トランザクションの更新処理
+  end
+    # トランザクションが正常に終了した場合の処理
+  rescue => e
+    # トランザクションが失敗した場合の例外処理
+```
+例
+```ruby
+  def create
+  
+   ActiveRecord::Base.transaction do
+      goods = Goods.find(params[:goods_id])  # 仮にparamsから商品IDを取得すると仮定
+      goods.decrement!(:stock, 1)            # 在庫を1つ減らす処理
+  
+      p = PurchaseHistory.new(purchase_history_params)  # newメソッドの呼び出しにpurchase_history_paramsを渡す
+      p.save!                                        # 購入履歴のレコードを新規作成する処理
+  
+      # ログに出力
+      logger.debug("トランザクションが完了しました")
+    end
+  
+  rescue => e
+    logger.debug("ロールバックされました")
+    puts e
+  
+  end
+  
+  def goods_params
+  end
+```
+!を付けるとDBへの保存が失敗した際に例外処理を発生させることができる。  
+例外が発生した場合は自動でロールバックが行われる。
