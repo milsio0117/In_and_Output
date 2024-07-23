@@ -152,9 +152,40 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
   JOIN teams
   ON teams.id = players.previous_team_id;  --idで紐づけ
 ```
-カラムにnullがあるとデータは取ってこれない。nullも含める場合は` JOIN ` →` LEFT JOIN `とする  
+<br>
+
+カラムにnullがあるとデータは取ってこれない。nullも含める場合は` JOIN ` → ` LEFT JOIN `または` RIGHT JOIN `とする  
+<br>
+LEFT JOIN: この場合playersテーブルがマスタテーブルとなりteamsがnullのplayerもレコードに含まれる
+
+```sql
+  SELECT players.name ,teams.name
+  FROM players  --左側（マスターテーブル）
+  LEFT JOIN teams  --結合テーブル
+  ON teams.id = players.previous_team_id;
+```
+
+RIGHT JOIN: この場合teamsテーブルがマスタテーブルとなりplayerがnullのteamsもレコードに含まれる
+
+```sql
+  SELECT players.name ,teams.name
+  FROM players　--結合テーブル
+  RIGHT JOIN teams  --右側（マスターテーブル）
+  ON teams.id = players.previous_team_id;
+```
+
+Full Outer Join: LEFT JOINとRIGHT JOINの結果を組み合わせたもの。  
+両方のテーブルのすべての行を返し、結合条件に一致しない行にはnullを入れる
+
+```sql
+  SELECT players.name ,teams.name
+  FROM players
+  FULL OUTER JOIN teams
+  ON teams.id = players.previous_team_id;
+```
 <br>
 省略して書くことも可能
+
 ```sql
   SELECT P.name AS "選手名",T.name AS "前年所属していたチーム"  --ASでplayer→P,team→Tに変更
   FROM players AS P  --このASも省略して player P　と書くこともできる
@@ -162,6 +193,18 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
   ON teams.id = players.previous_team_id;  --idで紐づけ
 ```
 <br>
+
+* 複数のSELECT文の結果を1つの結果として取得する（縦長に結合）  
+条件： 1.取得するカラムの数が一致している　2.そのデータ型が同じである
+
+```sql
+  SELECT id, name
+  FROM TableA
+  UNION
+  SELECT id, city
+  FROM TableB;
+```
+重複するレコードは削除して取得される。重複するレコードも取得したい場合は` UNION ALL `とする。
 
 <br>
 
