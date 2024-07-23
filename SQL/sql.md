@@ -152,7 +152,17 @@ WHEREはグループ化される前のテーブル全体を検索対象とする
   JOIN teams
   ON teams.id = players.previous_team_id;  --idで紐づけ
 ```
-カラムにnullがあるとデータは取ってこれない。nullも含める場合はJOIN →` LEFT JOIN `とする
+カラムにnullがあるとデータは取ってこれない。nullも含める場合は` JOIN ` →` LEFT JOIN `とする  
+<br>
+省略して書くことも可能
+```sql
+  SELECT P.name AS "選手名",T.name AS "前年所属していたチーム"  --ASでplayer→P,team→Tに変更
+  FROM players AS P  --このASも省略して player P　と書くこともできる
+  JOIN teams AS T
+  ON teams.id = players.previous_team_id;  --idで紐づけ
+```
+<br>
+
 <br>
 
 * レコードを追加する
