@@ -1,3 +1,5 @@
+[Regexpクラス](https://docs.ruby-lang.org/ja/latest/class/Regexp.html#I_--3D--7E)
+
 ## pre_match
 ### マッチした前の部分を取り出す
 ```ruby
@@ -16,6 +18,8 @@ p reg.post_match  # " Raisの勉強をはじめましょう"
 
 ## =~
 ### マッチした部分のインデックスを返す
+` 正規表現オブジェクト =~ string `  
+* =~はRegexpとStringのどちらのクラスにも容易されているので、正規表現オブジェクトを使ってマッチしているかどうかを調べるには左右どちらでも結果は変わらない
 ```ruby
 p /aaa/ =~ "aaabbb"  # 0
 p /aaa/ =~ "rubyaaa"  # 4
