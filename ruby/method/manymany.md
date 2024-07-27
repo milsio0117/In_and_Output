@@ -1,4 +1,15 @@
 ruby % ruby test.rb
+## inspect
+### オブジェクトの内容を文字列として表現する
+```ruby
+  array = [1, 2, 3, 4, 5]
+  
+  puts array        # 1 2 3 4 5
+  puts array.inspect  # => "[1, 2, 3, 4, 5]"
+
+  hash = { a: 1, b: 2, c: 3 }
+  puts hash.inspect  # => "{:a=>1, :b=>2, :c=>3}"
+```
 
 ## upto
 ### オブジェクト数値～引数の数値まで処理する
@@ -205,8 +216,9 @@ include?と一緒に使う応用系
 ` 配列.reject {|変数| 条件} ` または ` ハッシュ.reject {|キー, 値| 条件} `  
 配列
 ```ruby
-  array = [1,2,3,4,5,6,7]
-  p array.reject {|item| item % 2 == 0}  # => [1, 3, 5, 7]
+  array = [1,2,3,4,5]
+  p array.reject {|item| item % 2 == 0}  # => [1, 3, 5]
+  p array.inspect # =>[1,2,3,4,5]　元のarrayは変わらない
 ```
 
 hash
@@ -217,6 +229,15 @@ hash
   p fruits.reject {|key, value| value > 100}　# => {"apple"=>100, "banana"=>80}
 ```
 
+## reject!　/　delete_if
+### 要素に変更を加えて新たな配列を返す(破壊的)
+### 条件に合わなかった場合、reject!はnilを、delete_ifは元の配列を返す
+```ruby
+  array = [1,2,3,4,5]
+
+  p array.reject! {|item| item % 2 == 0}  # => [1, 3, 5]
+  p array.inspect # =>[1, 3, 5]　元のarrayも変わる
+```
 
 ## map
 ### 要素に変更を加えて新たな配列を返す
